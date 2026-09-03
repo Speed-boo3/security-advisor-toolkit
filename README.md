@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,30:050a1a,100:0a1628&height=210&section=header&text=Security%20Advisor%20Toolkit&fontSize=50&fontColor=4488ff&animation=fadeIn&fontAlignY=42&desc=Risk%20Assessment%20%7C%20Supplier%20Security%20%7C%20ISO%2027001%20Gap%20Analysis%20%7C%20Compliance%20Reporting&descAlignY=65&descColor=555555&descSize=13"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,30:050a1a,100:0a1628&height=200&section=header&text=Security%20Advisor%20Toolkit&fontSize=50&fontColor=4488ff&animation=fadeIn&fontAlignY=42&desc=Risk%20Assessment%20%7C%20Supplier%20Security%20%7C%20ISO%2027001%3A2022%20%7C%20Compliance%20Reporting&descAlignY=65&descColor=555555&descSize=13"/>
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=14&duration=2500&pause=900&color=4488FF&center=true&vCenter=true&width=700&lines=Risk+assessment+following+NSM+and+ISO+27001%3A2022;Supplier+security+evaluation+against+Annex+A+5.19-5.22;ISO+27001%3A2022+gap+analysis+with+remediation+plan;Management-ready+compliance+reports;Security+policy+and+contract+clause+templates"/>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=14&duration=2500&pause=900&color=4488FF&center=true&vCenter=true&width=700&lines=Risk+register+with+NSM+scoring+methodology;Supplier+assessment+against+ISO+27001+Annex+A+5.19-5.22;ISO+27001%3A2022+gap+analysis+checklist;Automated+compliance+report+generation;NIS2+and+DORA+2026+regulatory+coverage"/>
 
 <br/>
 
@@ -16,183 +16,110 @@
 
 ---
 
-## What this is
+## Background
 
-A practical toolkit for security advisors working in organisations that need to manage information security risk, demonstrate compliance and handle supplier relationships systematically.
+I built this while preparing for a role as a security advisor. The goal was to understand what the job actually involves day to day, not just the theory. A security advisor spends a lot of time on three things: assessing and prioritising risks, evaluating suppliers, and producing documentation that management and auditors can act on.
 
-The tools here are built around the frameworks and methodologies that actually come up in GRC work: ISO 27001:2022 Annex A controls, NSM Grunnprinsipper, NIS2 incident reporting obligations and the VSR (value / vulnerability / risk) methodology used in Norwegian security assessments. Each tool produces output that is ready to use in a real security programme, not a simulation.
+This project covers all three. The risk register follows the VSR methodology referenced in NSM guidance. The supplier checklist maps to ISO 27001:2022 Annex A 5.19-5.22, which is the part of the standard that deals specifically with supplier relationships. The compliance checklist covers the controls most commonly tested in ISO 27001 audits. And the report generator pulls it all together into something that could actually be handed to a manager.
 
 ---
 
-## Tools
+## What is in here
 
-### Risk assessment
+```
+security-advisor-toolkit/
+├── risk/
+│   ├── risk_matrix.py          <- reads the register and prints a sorted report
+│   └── risk_register.json      <- 8 realistic risk scenarios
+├── supplier/
+│   └── supplier_checklist.md   <- 17-point assessment, ISO 27001 Annex A 5.19-5.22
+├── compliance/
+│   └── iso27001_checklist.md   <- gap analysis across 24 Annex A controls
+├── policy/
+│   └── security_policy_template.md  <- policy template with NIS2 requirements
+├── reporting/
+│   └── generate_report.py      <- produces a markdown report from the risk register
+└── reports/
+    └── report-2026-09-03.md    <- example output
+```
 
-Structured risk identification, scoring and treatment planning. Follows NSM methodology and ISO 27001:2022 section 6.1. Outputs a prioritised risk register sorted by score.
+---
+
+## Risk register
+
+The register covers eight scenarios that come up frequently in real risk assessments. Scored by likelihood x impact on a 1 to 5 scale, following the approach NSM uses.
 
 ```bash
-# Start a new risk assessment interactively
-python risk/risk_assessment.py --new
-
-# Print the full risk register report
-python risk/risk_assessment.py --file risk/sample_risks.json --report
+python risk/risk_matrix.py
 ```
 
 ```
-================================================================
-  RISK REPORT  |  2026-09-03  |  7 open  |  1 closed
-================================================================
+Risk Register
+======================================================================
+ID           Risk                                Score   Level      Owner
+----------------------------------------------------------------------
+RISK-001     Phishing against personnel          20      Critical   Security Team
+RISK-002     Ransomware via initial access        15      High       IT Operations
+RISK-006     Insufficient logging and monitoring  12      High       Security Operations
+RISK-007     Missing AI governance policy         12      High       Security / HR
+RISK-003     Supply chain compromise              10      High       Procurement / IT
+RISK-004     Insider threat -- data exfiltration  10      High       HR / Security
+RISK-005     Weak supplier contract security       9      Medium     Procurement / Legal
+----------------------------------------------------------------------
 
-  [CRITICAL]
-  ----------------------------------------------------------
-
-  RISK-001 -- Phishing attack against personnel
-  Asset      : User accounts and corporate email
-  Threat     : Targeted spear-phishing
-  Score      : 20  (L:5 x I:4)
-  Owner      : Security Team
-  Treatment  : mitigate
-  Action by  : Immediate -- escalate to management
-  Controls   : FIDO2 keys for privileged accounts, AI email threat detection
-
-  RISK-003 -- Ransomware affecting operational systems
-  Score      : 15  (L:3 x I:5)
-  Action by  : 30 days
+Open: 7    Closed: 1
 ```
+
+The supply chain and AI governance risks are the ones I find most interesting to think about in 2026. Supply chain compromise is high impact because it bypasses most perimeter defences, and AI governance is a gap in almost every organisation right now because the tools moved faster than the policies did.
 
 ---
 
-### Supplier security assessment
+## Supplier assessment
 
-Evaluates suppliers against 14 security criteria based on ISO 27001:2022 Annex A 5.19-5.22. Produces an APPROVED / CONDITIONAL / NOT APPROVED recommendation with a gap list.
+The checklist in `supplier/supplier_checklist.md` covers 17 criteria across five areas: documentation and certification, access and personnel, technical controls, and supply chain resilience. It produces an Approved / Conditional / Not Approved recommendation.
+
+This maps directly to ISO 27001:2022 Annex A 5.19-5.22, which is what most auditors will check when they ask about your supplier security programme.
+
+---
+
+## ISO 27001:2022 gap analysis
+
+The checklist in `compliance/iso27001_checklist.md` covers 24 controls across all four Annex A themes. It is designed to be filled in during an internal assessment before an external audit.
+
+The controls that most organisations have gaps on, in my experience reading case studies and audit reports, are 5.7 (threat intelligence), 5.22 (supplier review), 8.8 (vulnerability management) and 8.15 (logging).
+
+---
+
+## Compliance report
 
 ```bash
-python supplier/supplier_assessment.py --new
-python supplier/supplier_assessment.py --file supplier/assessments.json --report
+python reporting/generate_report.py
 ```
 
-```
-  [X] Acme Software Ltd -- 52% -- NOT APPROVED
-       Service     : IT maintenance tooling
-       Criticality : high
-       High gaps   : 3
-         - ISO 27001 or equivalent certification
-         - Security incident notification clause
-         - Personnel security and background checks
-
-  [!] Cloud Systems AS -- 74% -- CONDITIONAL
-       Service     : Cloud storage
-       Criticality : high
-       High gaps   : 1
-         - Data processing agreement in place
-```
-
----
-
-### ISO 27001:2022 gap analysis
-
-Walks through 24 Annex A controls across all four themes. Calculates compliance score per theme and outputs a prioritised remediation plan.
-
-```bash
-python compliance/gap_analysis.py --run
-python compliance/gap_analysis.py --file compliance/gap_results.json --report
-```
-
-```
-  Organisational  [================----]  82%
-  People          [==============------]  72%
-    [!] 6.1 -- Screening -- GAP
-         Action: Implement background check process for all new hires
-  Technological   [============--------]  64%
-    [!] 8.8 -- Management of technical vulnerabilities -- GAP
-    [!] 8.15 -- Logging -- PARTIAL
-
-  Overall compliance: 74%
-
-  PRIORITY ACTIONS (3 high-priority gaps)
-```
-
----
-
-### Compliance report generator
-
-Combines risk register, supplier assessments and compliance data into a management-ready markdown report. Covers ISO 27001:2022, NIST CSF 2.0, NSM Grunnprinsipper and 2026 regulatory requirements (NIS2, DORA, AI governance).
-
-```bash
-python reporting/generate_report.py --risks risk/sample_risks.json
-```
-
-Reports are saved to `reports/` with an auto-updated index. Ready to share with management or include in an audit package.
-
----
-
-## Policy and contract templates
-
-**`policy/security_policy_template.md`**
-
-A complete security policy template covering governance, access control, supplier security, incident response, AI governance and personnel security. Built around ISO 27001:2022 and NSM Grunnprinsipper. Includes NIS2 obligations where relevant.
-
-**`policy/supplier_security_clause.md`**
-
-Seven standard contract clauses covering information security requirements, data protection, incident notification, right to audit, personnel security, subcontractors and data deletion. Ready to insert into supplier agreements.
-
----
-
-## Risk register -- current findings
-
-The sample risk register (`risk/sample_risks.json`) contains 8 realistic risk scenarios relevant to organisations handling sensitive information:
-
-| Risk | Score | Level |
-|---|---|---|
-| Phishing attack against personnel | 20 | Critical |
-| Inadequate logging and monitoring | 12 | High |
-| Ransomware affecting operational systems | 15 | High |
-| Supply chain compromise via third-party software | 10 | High |
-| Insider threat -- unauthorised data access | 10 | High |
-| Missing security requirements in supplier contracts | 9 | Medium |
-| Weak endpoint security on remote workers | 9 | Medium |
-| Lost or stolen laptop | 4 | Low -- Closed |
+Reads the risk register and produces a markdown report covering risk status, 2026 regulatory requirements (NIS2, DORA, AI governance) and recommended actions. Saved to `reports/`.
 
 ---
 
 ## 2026 regulatory context
 
-Security advisors in 2026 need to navigate a more complex regulatory environment than two years ago.
+Three things have changed recently that a security advisor needs to understand:
 
-**NIS2 Directive** came into force across EU member states in October 2024. It significantly expands who is covered, requires board-level accountability for security, mandates 24-hour incident early warning and 72-hour full notification, and sets strict requirements for supply chain security. Organisations in essential or important sectors that have not done a NIS2 gap assessment are exposed.
+**NIS2** came into force across EU member states in October 2024. It expanded the scope significantly and introduced 24-hour early warning obligations for significant incidents. Board-level accountability is now explicit. Supply chain security requirements are much stricter than under the original NIS Directive.
 
-**DORA** (Digital Operational Resilience Act) came into force in January 2025 for financial sector organisations. It requires documented ICT risk management, resilience testing and third-party risk oversight.
+**DORA** came into force in January 2025 for financial sector organisations. It requires documented ICT risk management, resilience testing and specific third-party oversight obligations.
 
-**ISO/IEC 42001:2023** is the AI management system standard. As organisations adopt AI tools including LLMs, regulators and auditors are starting to ask what governance exists around them. This toolkit includes AI governance requirements in both the security policy template and the gap analysis.
-
-**NSM Grunnprinsipper** remain the Norwegian baseline. The risk assessment tool uses the VSR methodology that aligns with how NSM expects risk to be documented.
+**AI governance** is still catching up with practice. ISO/IEC 42001:2023 provides a framework, but most organisations do not yet have a policy that covers how staff are allowed to use AI tools. This is showing up as a finding in security assessments more and more.
 
 ---
 
-## Usage
+## Quickstart
 
 ```bash
 git clone https://github.com/Speed-boo3/security-advisor-toolkit.git
 cd security-advisor-toolkit
-pip install -r requirements.txt
-
-# Run a full risk report
-python risk/risk_assessment.py --file risk/sample_risks.json --report
-
-# Run the compliance report generator
+python risk/risk_matrix.py
 python reporting/generate_report.py
-
-# Start a new supplier assessment
-python supplier/supplier_assessment.py --new
 ```
-
----
-
-## Related projects
-
-- [soc-project](https://github.com/Speed-boo3/soc-project) -- detection engineering tools referenced in the logging and monitoring risk entries
-- [grc-project](https://github.com/Speed-boo3/grc-project) -- broader GRC framework with ISO 27001 and NIST CSF documentation
-- [cloud-security](https://github.com/Speed-boo3/cloud-security) -- cloud misconfiguration scanning with CIS benchmark compliance scoring
 
 <div align="center">
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a1628,50:050a1a,100:0d1117&height=100&section=footer&text=Structure.%20Evidence.%20Accountability.&fontSize=15&fontColor=4488ff&animation=twinkling"/>

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "RISK-001",
+    "title": "Phishing against personnel",
+    "description": "Staff targeted by credential harvesting emails. Successful attack gives attacker valid account access or installs malware.",
+    "likelihood": 5,
+    "impact": 4,
+    "score": 20,
+    "owner": "Security Team",
+    "treatment": "Mitigate -- MFA enforced, phishing simulation training, AI-based email filtering",
+    "status": "open",
+    "updated": "2026-08-01"
+  },
+  {
+    "id": "RISK-002",
+    "title": "Ransomware via initial access",
+    "description": "Attacker gains foothold via phishing or exposed service, moves laterally and deploys ransomware across operational systems.",
+    "likelihood": 3,
+    "impact": 5,
+    "score": 15,
+    "owner": "IT Operations",
+    "treatment": "Mitigate -- network segmentation, immutable backups, EDR, tested recovery procedure",
+    "status": "open",
+    "updated": "2026-08-01"
+  },
+  {
+    "id": "RISK-003",
+    "title": "Supply chain compromise",
+    "description": "Malicious code delivered via a trusted software supplier update. Analogous to SolarWinds 2020 and XZ Utils 2024.",
+    "likelihood": 2,
+    "impact": 5,
+    "score": 10,
+    "owner": "Procurement / IT",
+    "treatment": "Mitigate -- supplier security assessments, SBOM requirement, staged update rollout",
+    "status": "open",
+    "updated": "2026-08-15"
+  },
+  {
+    "id": "RISK-004",
+    "title": "Insider threat -- data exfiltration",
+    "description": "Personnel with legitimate access intentionally or negligently exfiltrate sensitive information.",
+    "likelihood": 2,
+    "impact": 5,
+    "score": 10,
+    "owner": "HR / Security",
+    "treatment": "Mitigate -- need-to-know access, periodic access reviews, DLP",
+    "status": "open",
+    "updated": "2026-07-20"
+  },
+  {
+    "id": "RISK-005",
+    "title": "Weak security requirements in supplier contracts",
+    "description": "Some supplier contracts lack security clauses, data processing agreements and breach notification obligations.",
+    "likelihood": 3,
+    "impact": 3,
+    "score": 9,
+    "owner": "Procurement / Legal",
+    "treatment": "Mitigate -- standard security clause library, annual supplier reviews",
+    "status": "open",
+    "updated": "2026-08-20"
+  },
+  {
+    "id": "RISK-006",
+    "title": "Insufficient logging and monitoring",
+    "description": "Not all systems send logs to the SIEM. Alert rules are not tuned. Attacker could operate undetected.",
+    "likelihood": 3,
+    "impact": 4,
+    "score": 12,
+    "owner": "Security Operations",
+    "treatment": "Mitigate -- full log coverage audit, MITRE-mapped detection rules, MTTD measurement",
+    "status": "open",
+    "updated": "2026-08-10"
+  },
+  {
+    "id": "RISK-007",
+    "title": "Missing AI governance policy",
+    "description": "Staff using LLMs for work without a policy. Risk of sensitive data being submitted to external AI services.",
+    "likelihood": 4,
+    "impact": 3,
+    "score": 12,
+    "owner": "Security / HR",
+    "treatment": "Mitigate -- draft AI usage policy aligned to ISO/IEC 42001:2023",
+    "status": "open",
+    "updated": "2026-09-01"
+  },
+  {
+    "id": "RISK-008",
+    "title": "Unencrypted laptops in field use",
+    "description": "A subset of older laptops does not have full-disk encryption enforced. Lost device means readable data.",
+    "likelihood": 2,
+    "impact": 2,
+    "score": 4,
+    "owner": "IT Operations",
+    "treatment": "BitLocker enforced via MDM. Remote wipe in place. Residual risk accepted.",
+    "status": "closed",
+    "closed_date": "2026-04-01"
+  }
+]
